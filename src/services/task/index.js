@@ -1,6 +1,6 @@
 import { multer, getFiles } from '@middleware/uploads/upload.middleware'
 import Service from './service/task.service'
-import createModel from './model/task.model'
+import createModel from './model/.model'
 import setupChannel from './channels/task.channel'
 import hooks from './hooks'
 
@@ -13,9 +13,9 @@ export default function (app) {
     }
   }
 
-  app.use('/flags', new Service(config))
+  app.use('/tasks', new Service(config))
 
-  app.service('flags').hooks(hooks)
+  app.service('task').hooks(hooks)
 
   setupChannel(app)
 }
