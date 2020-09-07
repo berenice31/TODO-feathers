@@ -1,5 +1,5 @@
 export default function (app) {
-  app.service('task').publish(data => {
+  app.service('tasks').publish(data => {
     return app.channel('everybody')
   })
 }
