@@ -1,4 +1,4 @@
 module.exports = {
   protocol: 'http',
-  port: 4000,
+  port: 8080,
 }

@@ -5,9 +5,9 @@ mongoose.Promise = global.Promise
 mongoose.set('useCreateIndex', true)
 
 export default function (app) {
-  const flags = createConnection('flags', process.env.MONGO_URL, process.env.MONGO_DB)
+  const tasks = createConnection('tasks', process.env.MONGO_URL, process.env.MONGO_DB)
 
   app.set('databases', {
-    flags,
+    tasks,
   })
 }

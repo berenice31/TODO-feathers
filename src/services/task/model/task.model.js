@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose'
-import ModelSchema from './flag.schema'
+import ModelSchema from './task.schema'
 
 export default function (app) {
-  const modelName = 'flag'
+  const modelName = 'task'
   const MongoClient = app.get('databases').flags
 
   const schema = new Schema(ModelSchema, { 

@@ -3,7 +3,7 @@ import init from './init'
 import seed from './seed'
 
 import HealthService from './health' 
-import FlagService from './flag' 
+import TaskService from './task' 
 
 import Debug from '@debug'
 
@@ -18,7 +18,7 @@ export default function () {
   }
 
   app.configure(HealthService)
-  app.configure(FlagService)
+  app.configure(TaskService)
 
   init(app)
   seed(app)

@@ -1,5 +1,5 @@
 export default function (app) {
-  app.service('flags').publish(data => {
+  app.service('taks').publish(data => {
     return app.channel('everybody')
   })
 }

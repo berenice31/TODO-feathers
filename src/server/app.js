@@ -12,6 +12,7 @@ import feathers from '@feathersjs/feathers'
 import configuration from '@feathersjs/configuration'
 import express from '@feathersjs/express'
 import socketio from '@feathersjs/socketio'
+//import flags from '../services/flag'
 
 import services from '@services'
 import globalHooks from '@hooks/app'
