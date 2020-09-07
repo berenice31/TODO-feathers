@@ -1,4 +1,4 @@
-import Debug from 'src/services/task/service/@debug'
+import Debug from '@debug'
 
 const debug = Debug('channels')
 

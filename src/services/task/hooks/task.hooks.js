@@ -1,6 +1,5 @@
-import { GeneralError, BadRequest, NotFound } from 'src/services/task/hooks/@feathersjs/errors'
-import Constants from '../constants/task.constants'
-import Debug from 'src/services/task/hooks/@debug'
+import { GeneralError, BadRequest, NotFound } from '@feathersjs/errors'
+import Debug from '@debug'
 
 const debug = Debug('flags')
 
