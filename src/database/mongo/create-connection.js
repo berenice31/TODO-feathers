@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Debug from 'src/services/task/service/@debug'
+import Debug from '@debug'
 
 const debug = Debug('database/connection')
 

@@ -28,7 +28,7 @@
     "debug": "^3.2.6",
     "express": "^4.17.1",
     "feathers": "^2.2.4",
-    "feathers-hooks-common": "^5.0.3",
+    "feathers-hooks-common": "^5.0.4",
     "feathers-mongoose": "^8.3.1",
     "helmet": "^3.23.3",
     "lodash": "^4.17.20",
