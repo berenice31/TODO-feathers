@@ -5,16 +5,19 @@
     <input type="text" class="new-todo" placeholder="Ajouter une tâche" v-model="newTodo" @keyup.enter="addTodo">
   </header>
   <div class="main">
+    <input type="checkbox" class="toggle-all" v-model="allDone">
     <ul class="todo-list">
-      <li class="todo" v-for="todo in filteredTodos" v-bind:class="{completed: todo.completed}">
+      <li class="todo" v-for="todo in filteredTodos" v-bind:class="{completed: todo.completed, editing: todo === editing}">
         <div class="view">
           <input type="checkbox" v-model="todo.completed" class="toggle">
-          <label for=""> {{todo.name}}</label>
+          <label @dblclick="editTodo(todo)" for=""> {{todo.name}}</label>
+          <button class="destroy" @click.prevent="deleteTodo(todo)"></button>
         </div>
+        <input type="text" class="edit" v-model="todo.name" @keyup.enter="doneEdit" @blur="doneEdit" @keyup.esc="cancelEdit" v-focus="todo === editing">
       </li>
     </ul>
   </div>
-  <footer class="footer">
+  <footer class="footer" v-show="hasTodos">
 <span class="todo-count"><strong>{{ remaining }}</strong> Tâches à faire</span>
 <ul class="filters">
   <li>
@@ -27,6 +30,7 @@
     <a href="#" :class="{selected: filter ==='done'}" @click.prevent="filter = 'done'"> Faites</a>
   </li>
 </ul>
+<button class="clear-completed" v-show="completed" @click.prevent="deleteCompleted"> Supprimer les tâches finies</button>
   </footer>
 </section>
 
@@ -41,7 +45,9 @@ export default {
         completed: false,
       }],
       newTodo:'',
-      filter:'all'
+      filter:'all',
+      editing: null,
+      oldTodo: ''
     }
   },
   methods: {
@@ -51,10 +57,45 @@ export default {
         completed: false,
       })
       this.newTodo='';
+    },
+    deleteCompleted (todo) {
+      this.todos = this.todos.filter(todo => !todo.completed)
+    },
+    deleteTodo( todo ) {
+      this.todos = this.todos.filter(i =>i !== todo)
+    },
+    editTodo (todo) {
+      this.editing = todo;
+      this.oldTodo = todo.name
+    },
+    doneEdit () {
+      this.editing = null
+    },
+    cancelEdit () {
+      this.editing.name === this.oldTodo;
+      this.doneEdit()
     }
   },
   computed: {
+    allDone: {
+      get () {
+        return this.remaining === 0
+      },
+      set (value) {
+        if (value === true) {
+          this.todos.forEach( todo => {
+            todo.completed = true
+          })
+        }
+      }
+    },
     remaining () {
+      return this.todos.filter(todo => !todo.completed).length
+    },
+    hasTodos () {
+      return this.todos.length > 0
+    },
+    completed () {
       return this.todos.filter(todo => !todo.completed).length
     },
     filteredTodos () {
@@ -65,8 +106,15 @@ export default {
       }
       return this.todos
     }
+  },
+  directives: {
+    focus (el, value) {
+      if (value) {
+          el.focus()
+        }
+      }
+    }
   }
-}
 </script>
 
 <style src="./todos.css"></style>
