@@ -13,9 +13,9 @@ export default function (app) {
     }
   }
 
-  app.use('/flags', new Service(config))
+  app.use('/tasks', new Service(config))
 
-  app.service('flags').hooks(hooks)
+  app.service('tasks').hooks(hooks)
 
   setupChannel(app)
 }

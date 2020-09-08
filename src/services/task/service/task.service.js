@@ -5,11 +5,11 @@ import { NotFound } from '@feathersjs/errors'
 const moment = require('moment');
 import Debug from '@debug'
 
-const debug = Debug('flags')
+const debug = Debug('tasks')
 
 export default class Service extends MongooseService {
   setup (app) {
-    debug.init('Setup flags')
+    debug.init('Setup tasks')
   }
 
 
@@ -18,12 +18,9 @@ export default class Service extends MongooseService {
   }
 
   async create(data) {
-    const idea = {
+    const task = {
       text: data.text,
-      tech: data.tech,
-      viewer: data.viewer
     }
-    idea.time = moment().format('h:mm:ss a')
     return idea
   }
 }
