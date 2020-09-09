@@ -134,6 +134,8 @@
 
 
 <script>
+import Vuex from 'vuex';
+
 export default {
   data () {
     return {
@@ -149,6 +151,9 @@ export default {
   },
 
   methods: {
+
+    ...Vuex.mapActions({ fetchTodos: 'fetchTodos' }),
+
     addTodo(){
       this.todos.push({
         name: this.newTodo,
@@ -217,7 +222,7 @@ export default {
       return this.todos
     }
   },
-  
+
   directives: {
     focus (el, value) {
       if (value) {
