@@ -26,14 +26,10 @@ const Store = new Vuex.Store({
 
   mutations: {
     FETCH_TODOS: (state, name) => {
-      return {
-        ... state,
-        todos :[{
-          ...state.todos,
-          name,
-          completed: false
-        }]
-      }
+      state.push({
+        name,
+        completed: false
+      })
     }
   },
 
