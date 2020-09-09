@@ -137,6 +137,12 @@
 import Vuex from 'vuex';
 
 export default {
+  
+  created () {
+    ...Vuex.mapActions({ fetchTodos: 'fetchTodos' }),
+  },
+
+
   data () {
     return {
       todos:[{
@@ -151,8 +157,6 @@ export default {
   },
 
   methods: {
-
-    ...Vuex.mapActions({ fetchTodos: 'fetchTodos' }),
 
     addTodo(){
       this.todos.push({
