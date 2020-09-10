@@ -74,7 +74,9 @@ export const store = createStore({
     },
 
     DELETE_TODO: (state, todo) => {
-      state.todos.filter(i=>i !== todo)
+      const newtasks = state.todos.filter(i=>i !== todo)
+      state.todos = newtasks
+
     }
   },
 
