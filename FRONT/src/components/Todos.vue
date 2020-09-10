@@ -8,7 +8,7 @@
       class="new-todo"
       placeholder="Ajouter une tâche"
       v-model="newTodo"
-      @keyup.enter="addTodo"
+      @keyup.enter="addTodo(newTodo)"
     >
 
   </header>
@@ -32,7 +32,7 @@
           completed: todo.completed,
           editing: todo === editing
         }"
-        :key=""
+        :key="todo._id"
       >
 
         <div class="view">
@@ -134,15 +134,17 @@
 
 
 <script>
-import Vuex from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
+  
+  created () {
+    
+  },
+
+
   data () {
     return {
-      todos:[{
-        name: 'Tache de test',
-        completed: false,
-      }],
       newTodo:'',
       filter:'all',
       editing: null,
@@ -152,23 +154,14 @@ export default {
 
   methods: {
 
-    ...Vuex.mapActions({ fetchTodos: 'fetchTodos' }),
+    ...mapActions({
+      fetchTodos: 'fetchTodos',
+      addTodo: 'addTodo',
+      deleteTodo: 'deleteTodo',
+      deleteCompleted: 'deleteCompleted',
+      changeTodo: 'changeTodo'
+      }),
 
-    addTodo(){
-      this.todos.push({
-        name: this.newTodo,
-        completed: false,
-      })
-      this.newTodo='';
-    },
-
-    deleteCompleted (todo) {
-      this.todos = this.todos.filter(todo => !todo.completed)
-    },
-
-    deleteTodo( todo ) {
-      this.todos = this.todos.filter(i =>i !== todo)
-    },
 
     editTodo (todo) {
       this.editing = todo;
@@ -188,6 +181,14 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      todos: 'todos',
+      completed: 'completed',
+      remaining: 'remaining',
+      completedTodos: 'completedTodos',
+      remainingTodos: 'remainingTodos'
+    }),
+
     allDone: {
       get () {
         return this.remaining === 0
@@ -201,16 +202,8 @@ export default {
       }
     },
 
-    remaining () {
-      return this.todos.filter(todo => !todo.completed).length
-    },
-
     hasTodos () {
       return this.todos.length > 0
-    },
-
-    completed () {
-      return this.todos.filter(todo => !todo.completed).length
     },
 
     filteredTodos () {
