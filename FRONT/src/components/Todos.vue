@@ -157,12 +157,10 @@ export default {
     ...mapActions({
       fetchTodos: 'fetchTodos',
       addTodo: 'addTodo',
-      deleteTodo: 'deleteTodo'
+      deleteTodo: 'deleteTodo',
+      deleteCompleted: 'deleteCompleted',
+      // editTodo: 'editTodo'
       }),
-
-    deleteCompleted (todo) {
-      this.todos = this.todos.filter(todo => !todo.completed)
-    },
 
 
     editTodo (todo) {

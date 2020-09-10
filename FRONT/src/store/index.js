@@ -7,6 +7,8 @@ export const store = createStore({
       name: 'tache 1',
       completed: false
     }],
+    editing: null,
+    oldTodo: ''
   }),
 
   actions: {
@@ -48,13 +50,26 @@ export const store = createStore({
     }
   },
 
-  // deleteCompleted: async ( { commit }, todo ) => {
+  deleteCompleted: async ( { commit }, todo ) => {
 
+    try {
+      console.log("delete completed is ok")
+      const response = await axios.post('http://localhost:8080/tasks')
+      store.commit('DELETE_COMPLETED', response.data)
+    } catch(error) {
+      return Promise.reject(error)
+    }
+  },
+
+  // editTodo: async({ commit }, todo) => {
   //   try {
-  //     console.log("delete completed is ok")
-  //     const response = await axios.delete
+  //     console.log("edit ok")
+  //     const response = await axios.post('http://localhost:8080/tasks')
+  //     store.commit('EDIT_TODO', todo)
+  //   } catch(error) {
+  //     return Promise.reject(error)
   //   }
-  // }
+  // },
 
 },
 
@@ -77,6 +92,16 @@ export const store = createStore({
       const newtasks = state.todos.filter(i=>i !== todo)
       state.todos = newtasks
 
+    },
+
+    DELETE_COMPLETED: (state, tasks) => {
+      const newtasks = state.todos.filter(todo => !todo.completed)
+      state.todos = newtasks
+    },
+
+    EDIT_TODO: (state, todo) => {
+      state.editing = todo;
+      state.oldTodo = todo.name;
     }
   },
 
@@ -87,6 +112,5 @@ export const store = createStore({
     remainingTodos: state => state.todos.filter(todo => !todo.completed),
     remaining: state => state.todos.filter(todo => !todo.completed).length,
     completed: state => state.todos.filter(todo => todo.completed).length,
-
   }
 })
