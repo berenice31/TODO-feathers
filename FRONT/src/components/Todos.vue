@@ -8,7 +8,7 @@
       class="new-todo"
       placeholder="Ajouter une tâche"
       v-model="newTodo"
-      @keyup.enter="addTodo"
+      @keyup.enter="addTodo(newTodo)"
     >
 
   </header>
@@ -32,7 +32,7 @@
           completed: todo.completed,
           editing: todo === editing
         }"
-        :key=""
+        :key="todo._id"
       >
 
         <div class="view">
@@ -134,21 +134,17 @@
 
 
 <script>
-import Vuex from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   
   created () {
-    ...Vuex.mapActions({ fetchTodos: 'fetchTodos' }),
+    
   },
 
 
   data () {
     return {
-      todos:[{
-        name: 'Tache de test',
-        completed: false,
-      }],
       newTodo:'',
       filter:'all',
       editing: null,
@@ -158,21 +154,27 @@ export default {
 
   methods: {
 
-    addTodo(){
-      this.todos.push({
-        name: this.newTodo,
-        completed: false,
-      })
-      this.newTodo='';
-    },
+    ...mapActions({
+      fetchTodos: 'fetchTodos',
+      addTodo: 'addTodo',
+      deleteTodo: 'deleteTodo'
+      }),
+
+    // addTodo(){
+    //   this.todos.push({
+    //     name: this.newTodo,
+    //     completed: false,
+    //   })
+    //   this.newTodo='';
+    // },
 
     deleteCompleted (todo) {
       this.todos = this.todos.filter(todo => !todo.completed)
     },
 
-    deleteTodo( todo ) {
-      this.todos = this.todos.filter(i =>i !== todo)
-    },
+    // deleteTodo( todo ) {
+    //   this.todos = this.todos.filter(i =>i !== todo)
+    // },
 
     editTodo (todo) {
       this.editing = todo;
@@ -192,6 +194,14 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      todos: 'todos',
+      completedTodos: 'completedTodos',
+      remainingTodos: 'remainingTodos',
+      completedTodosCount: 'completedTodosCount',
+      remainingTodosCount: 'remainingTodosCount'
+    }),
+
     allDone: {
       get () {
         return this.remaining === 0
@@ -213,9 +223,9 @@ export default {
       return this.todos.length > 0
     },
 
-    completed () {
-      return this.todos.filter(todo => !todo.completed).length
-    },
+    // completed () {
+    //   return this.todos.filter(todo => !todo.completed).length
+    // },
 
     filteredTodos () {
       if (this.filter === 'todo') {
