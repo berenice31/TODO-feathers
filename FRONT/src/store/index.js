@@ -1,3 +1,4 @@
+import client from '../feathers-client/use-client.js'
 import { createStore } from 'vuex'
 import axios from 'axios'
 
@@ -17,8 +18,7 @@ export const store = createStore({
 
       try {
         console.log('fetch')
-        const response = await axios.get('http://localhost:8080/tasks')
-        
+        const response = await client.service('tasks').get
         store.commit('FETCH_TODOS', response.data)
         
         return response
@@ -43,7 +43,7 @@ export const store = createStore({
 
     try {
       console.log("delete is OK")
-      const response = await axios.post('http://localhost:8080/tasks')
+      const response = await axios.delete(`http://localhost:8080/tasks/${todo._id}`)
       store.commit('DELETE_TODO', todo)
     } catch(error) {
       return Promise.reject(error)
@@ -54,22 +54,22 @@ export const store = createStore({
 
     try {
       console.log("delete completed is ok")
-      const response = await axios.post('http://localhost:8080/tasks')
+      const response = await axios.delete(`http://localhost:8080/tasks/${todo._id}`)
       store.commit('DELETE_COMPLETED', response.data)
     } catch(error) {
       return Promise.reject(error)
     }
   },
 
-  // editTodo: async({ commit }, todo) => {
-  //   try {
-  //     console.log("edit ok")
-  //     const response = await axios.post('http://localhost:8080/tasks')
-  //     store.commit('EDIT_TODO', todo)
-  //   } catch(error) {
-  //     return Promise.reject(error)
-  //   }
-  // },
+  changeTodo: async({ commit }, todo) => {
+    try {
+      console.log("edit ok")
+      const response = await axios.patch(`http://localhost:8080/tasks/${todo._id}`)
+      store.commit('CHANGE_TODO', todo)
+    } catch(error) {
+      return Promise.reject(error)
+    }
+  },
 
 },
 
@@ -99,10 +99,10 @@ export const store = createStore({
       state.todos = newtasks
     },
 
-    // EDIT_TODO: (state, todo) => {
-    //   state.editing = todo;
-    //   state.oldTodo = todo.name;
-    // }
+    CHANGE_TODO: (state, todo) => {
+      state.editing = todo;
+      state.oldTodo = todo.name;
+    }
   },
 
   getters: {
