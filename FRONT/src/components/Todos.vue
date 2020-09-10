@@ -159,7 +159,7 @@ export default {
       addTodo: 'addTodo',
       deleteTodo: 'deleteTodo',
       deleteCompleted: 'deleteCompleted',
-      // editTodo: 'editTodo'
+      editTodo: 'editTodo'
       }),
 
 

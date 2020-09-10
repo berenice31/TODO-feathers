@@ -99,10 +99,10 @@ export const store = createStore({
       state.todos = newtasks
     },
 
-    EDIT_TODO: (state, todo) => {
-      state.editing = todo;
-      state.oldTodo = todo.name;
-    }
+    // EDIT_TODO: (state, todo) => {
+    //   state.editing = todo;
+    //   state.oldTodo = todo.name;
+    // }
   },
 
   getters: {
