@@ -37,17 +37,24 @@ export const store = createStore({
     }
   },
 
-  deleteTodo: async ( { commit }, name) => {
+  deleteTodo: async ( { commit }, todo) => {
 
     try {
       console.log("delete is OK")
-      const response = await axios.delete('http://localhost:8080/tasks')
-      store.commit('DELETE_TODO', name)
+      const response = await axios.post('http://localhost:8080/tasks')
+      store.commit('DELETE_TODO', todo)
     } catch(error) {
       return Promise.reject(error)
     }
   },
 
+  // deleteCompleted: async ( { commit }, todo ) => {
+
+  //   try {
+  //     console.log("delete completed is ok")
+  //     const response = await axios.delete
+  //   }
+  // }
 
 },
 
@@ -77,7 +84,7 @@ export const store = createStore({
     completedTodos: state => state.todos.filter(todo => todo.completed),
     remainingTodos: state => state.todos.filter(todo => !todo.completed),
     remaining: state => state.todos.filter(todo => !todo.completed).length,
-    completed: state => (state.todos.filter(todo => todo.completed)).length,
+    completed: state => state.todos.filter(todo => todo.completed).length,
 
   }
 })

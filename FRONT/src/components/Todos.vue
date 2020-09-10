@@ -187,8 +187,8 @@ export default {
       todos: 'todos',
       completed: 'completed',
       remaining: 'remaining',
-      completedTodosCount: 'completedTodosCount',
-      remainingTodosCount: 'remainingTodosCount'
+      completedTodos: 'completedTodos',
+      remainingTodos: 'remainingTodos'
     }),
 
     allDone: {
