@@ -160,21 +160,10 @@ export default {
       deleteTodo: 'deleteTodo'
       }),
 
-    // addTodo(){
-    //   this.todos.push({
-    //     name: this.newTodo,
-    //     completed: false,
-    //   })
-    //   this.newTodo='';
-    // },
-
     deleteCompleted (todo) {
       this.todos = this.todos.filter(todo => !todo.completed)
     },
 
-    // deleteTodo( todo ) {
-    //   this.todos = this.todos.filter(i =>i !== todo)
-    // },
 
     editTodo (todo) {
       this.editing = todo;
@@ -196,8 +185,8 @@ export default {
   computed: {
     ...mapGetters({
       todos: 'todos',
-      completedTodos: 'completedTodos',
-      remainingTodos: 'remainingTodos',
+      completed: 'completed',
+      remaining: 'remaining',
       completedTodosCount: 'completedTodosCount',
       remainingTodosCount: 'remainingTodosCount'
     }),
@@ -215,17 +204,9 @@ export default {
       }
     },
 
-    remaining () {
-      return this.todos.filter(todo => !todo.completed).length
-    },
-
     hasTodos () {
       return this.todos.length > 0
     },
-
-    // completed () {
-    //   return this.todos.filter(todo => !todo.completed).length
-    // },
 
     filteredTodos () {
       if (this.filter === 'todo') {

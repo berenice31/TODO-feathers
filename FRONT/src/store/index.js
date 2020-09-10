@@ -74,10 +74,10 @@ export const store = createStore({
   getters: {
 
     todos: state => state.todos,
-    // completedTodos: state => state.todos.filter(todo => todo.completed),
-    // remainingTodos: state => state.todos.filter(todo => !todo.completed),
-    // remainingTodosCount: state => getters.remainingTodos(state).length,
-    // completedTodosCount: state => getters.completedTodos(state).length,
+    completedTodos: state => state.todos.filter(todo => todo.completed),
+    remainingTodos: state => state.todos.filter(todo => !todo.completed),
+    remaining: state => state.todos.filter(todo => !todo.completed).length,
+    completed: state => (state.todos.filter(todo => todo.completed)).length,
 
   }
 })
