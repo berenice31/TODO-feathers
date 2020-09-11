@@ -1,6 +1,6 @@
 module.exports = {
   protocol: 'https',
-  port: 8080,
+  port: 5000,
 
   authentication: {
     entity: 'user',

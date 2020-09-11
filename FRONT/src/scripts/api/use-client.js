@@ -7,7 +7,7 @@ import axios from 'axios'
 
 // const socket = io('http://localhost:8080');
 const client = feathers()
-.configure(restClient('http://localhost:8080').axios(axios));
+.configure(restClient('http://localhost:5000').axios(axios));
 
 // client.configure(socketio(socket));
 
