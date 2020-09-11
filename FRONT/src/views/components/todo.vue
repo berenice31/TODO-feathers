@@ -48,6 +48,12 @@
 import { mapActions, mapGetters } from 'vuex';
 export default {
   
+props: {
+    todo: {
+      type: Object,
+      required: true,
+    },
+},
  data () {
     return {
       newTodo:'',
