@@ -12,14 +12,14 @@
 
             <input
               type="checkbox"
-              v-model="todo.completed"
+              v-model="completed"
               class="toggle"
             >
 
             <label
               @dblclick="editTodo(todo)"
             >
-              {{todo.name}}
+              {{ todo.name}}
             </label>
 
             <button
@@ -92,10 +92,18 @@ props: {
   },
 
   computed: {
-    ...mapGetters({
-      todos: 'todos',
-      completed: 'completed',
-    }),
+    completed: {
+      get () {
+        return this.todo.completed
+      },
+
+      set (value) {
+        this.changeTodo({
+          ...this.todo,
+          completed: value
+        })
+      }
+    },
   },
 
   directives: {
