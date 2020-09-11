@@ -1,134 +1,135 @@
 <template>
-<section class="todoapp">
-  <header class="header">
-    <h1> todos</h1>
+  <section class="todoapp">
+    <header class="header">
+      <h1> todos</h1>
 
-    <input 
-      type="text"
-      class="new-todo"
-      placeholder="Ajouter une tâche"
-      v-model="newTodo"
-      @keyup.enter="addTodo(newTodo)"
-    >
-
-  </header>
-
-  <div class="main">
-
-    <input
-      type="checkbox"
-      class="toggle-all"
-      v-model="allDone"
-    >
-
-    <ul
-      class="todo-list"
-    >
-
-      <li
-        class="todo"
-        v-for="todo in filteredTodos"
-        v-bind:class="{
-          completed: todo.completed,
-          editing: todo === editing
-        }"
-        :key="todo._id"
+      <input 
+        type="text"
+        class="new-todo"
+        placeholder="Ajouter une tâche"
+        v-model="newTodo"
+        @keyup.enter="addTodo(newTodo)"
       >
 
-        <div class="view">
+    </header>
 
-          <input
-            type="checkbox"
-            v-model="todo.completed"
-            class="toggle"
-          >
+    <div class="main">
 
-          <label
-            @dblclick="editTodo(todo)"
-          >
-            {{todo.name}}
-          </label>
+      <input
+        type="checkbox"
+        class="toggle-all"
+        v-model="allDone"
+      >
 
-          <button
-          class="destroy"
-          @click.prevent="deleteTodo(todo)"
-          >
-          </button>
+      <ul
+        class="todo-list"
+      >
 
-        </div>
-
-        <input
-          type="text"
-          class="edit"
-          v-model="todo.name"
-          @keyup.enter="doneEdit"
-          @blur="doneEdit"
-          @keyup.esc="cancelEdit"
-          v-focus="todo === editing"
+        <li
+          class="todo"
+          v-for="todo in filteredTodos"
+          v-bind:class="{
+            completed: todo.completed,
+            editing: editing && todo._id === editing._id
+          }"
+          :key="todo._id"
         >
 
-      </li>
-    </ul>
-  </div>
+          <div class="view">
 
-  <footer
-    class="footer"
-    v-show="hasTodos"
-  >
+            <input
+              type="checkbox"
+              v-model="todo.completed"
+              class="toggle"
+            >
 
-<span
-  class="todo-count"
->
-  <strong>
-    {{ remaining }}
-  </strong>
-    Tâches à faire
-</span>
+            <label
+              @dblclick="editTodo(todo)"
+            >
+              {{todo.name}}
+            </label>
 
-<ul class="filters">
+            <button
+            class="destroy"
+            @click.prevent="deleteTodo(todo)"
+            >
+            </button>
 
-  <li>
-    <a 
-      href="#"
-      :class="{selected: filter ==='all'}"
-      @click.prevent="filter = 'all'"
+          </div>
+
+          <input  
+            v-if="editing"
+            type="text"
+            class="edit"
+            v-model="editing.name"
+            @keyup.enter="doneEdit"
+            @blur="doneEdit"
+            @keyup.esc="cancelEdit"
+            v-focus="editing && todo._id === editing._id"
+          >
+
+        </li>
+      </ul>
+    </div>
+
+    <footer
+      class="footer"
+      v-show="hasTodos"
     >
-      Toutes
-    </a>
-  </li>
 
-  <li>
-    <a
-      href="#"
-      :class="{selected: filter ==='to do'}"
-      @click.prevent="filter = 'todo'"
-    >
-      A faire
-    </a>
-  </li>
+      <span
+        class="todo-count"
+      >
+        <strong>
+          {{ remaining }}
+        </strong>
+          Tâches à faire
+      </span>
 
-  <li>
-    <a
-      href="#"
-      :class="{selected: filter ==='done'}"
-      @click.prevent="filter = 'done'"
-    >
-      Faites
-    </a>
-  </li>
+      <ul class="filters">
 
-</ul>
+        <li>
+          <a 
+            href="#"
+            :class="{selected: filter ==='all'}"
+            @click.prevent="filter = 'all'"
+          >
+            Toutes
+          </a>
+        </li>
 
-<button
-  class="clear-completed"
-  v-show="completed"
-  @click.prevent="deleteCompleted"
->
-  Supprimer les tâches finies
-</button>
+        <li>
+          <a
+            href="#"
+            :class="{selected: filter ==='to do'}"
+            @click.prevent="filter = 'todo'"
+          >
+            A faire
+          </a>
+        </li>
 
-  </footer>
-</section>
+        <li>
+          <a
+            href="#"
+            :class="{selected: filter ==='done'}"
+            @click.prevent="filter = 'done'"
+          >
+            Faites
+          </a>
+        </li>
+
+      </ul>
+
+      <button
+        class="clear-completed"
+        v-show="completed"
+        @click.prevent="deleteCompleted"
+      >
+        Supprimer les tâches finies
+      </button>
+
+    </footer>
+  </section>
 
 </template>
 
@@ -160,23 +161,26 @@ export default {
       deleteTodo: 'deleteTodo',
       deleteCompleted: 'deleteCompleted',
       changeTodo: 'changeTodo'
-      }),
+    }),
 
 
     editTodo (todo) {
-      this.editing = todo;
+      this.editing = Object.assign({}, todo)
       this.oldTodo = todo.name
     },
 
     doneEdit () {
+      console.log('editing', this.editing)
+      this.changeTodo(this.editing)
+
       this.editing = null
     },
 
     cancelEdit () {
-      if(this.editing.name !== this.oldTodo ) {
+      if (this.editing.name !== this.oldTodo) {
         this.editing.name = this.oldTodo
       }
-      this.doneEdit();
+      this.doneEdit()
     }
   },
 

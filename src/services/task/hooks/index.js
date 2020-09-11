@@ -14,7 +14,9 @@ export const after = {
   all: [],
   find: [],
   get: [],
-  create: [],
+  create: [
+    hook => console.log('CREATED', hook.result),
+  ],
   update: [],
   patch: [],
   remove: []

@@ -4,9 +4,9 @@ export default {
   name: { 
     type: String, 
     required: true,
-    unique: true,
   },
   completed: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 }
