@@ -1,9 +1,12 @@
 import { Schema } from 'mongoose'
 
 export default {
-  text: { 
+  name: { 
     type: String, 
     required: true,
     unique: true,
   },
+  completed: {
+    type: Boolean
+  }
 }

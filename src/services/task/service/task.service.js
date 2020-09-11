@@ -13,15 +13,28 @@ export default class Service extends MongooseService {
   }
 
 
-  async find (params) {
-    return super._find(params)
+  async find (id, params) {
+    return super.find(params)
+  }
+
+  async get (params) {
+    return super.get(params)
   }
 
   async create(data) {
     const task = {
-      text: data.text,
+      name: data.name,
+      completed: false
     }
-    return idea
+    return task
+  }
+
+  update (id, data, params) {
+    return super.update(id, data, params) 
+  }
+
+  remove (id, params) {
+    return super.remove(id, params)
   }
 }
 

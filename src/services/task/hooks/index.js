@@ -1,5 +1,4 @@
 import { iff, iffElse, isNot, isProvider, disallow } from 'feathers-hooks-common'
-import * as hooks from './task.hooks'
 
 export const before = {
   all: [],
