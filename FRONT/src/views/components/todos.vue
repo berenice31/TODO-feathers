@@ -147,6 +147,10 @@ export default {
           this.todos.forEach( todo => {
             todo.completed = true
           })
+        } else {
+          this.todos.forEach( todo => {
+            todo.completed = false
+          })
         }
       }
     },

@@ -6,7 +6,8 @@ export const store = createStore({
   state: () => ({
     todos:[],
     editing: null,
-    oldTodo: ''
+    oldTodo: '',
+    newTodo: ''
   }),
 
   actions: {
@@ -65,7 +66,7 @@ export const store = createStore({
       // commit('DELETE_COMPLETED', response.data)
 
       // Il vaut mieux supprimer chaque todo une par une en utilisant ton autre action deleteTodo
-      const completed = state.todos.filter(todo => !todo.completed)
+      const completed = state.todos.filter(todo => todo.completed)
 
       for (let i = 0; i < completed.length; i++) {
         dispatch('deleteTodo', completed[i])
@@ -105,7 +106,7 @@ export const store = createStore({
       //   name,
       //   completed: false,
       // })
-      state.todos.push(todo)
+      state.todos.push(todo);
     },
 
     DELETE_TODO: (state, todo) => {

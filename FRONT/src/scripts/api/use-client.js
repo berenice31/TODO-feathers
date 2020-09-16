@@ -16,9 +16,9 @@ const taskService = client.service('tasks');
 taskService.on('created', task => console.log('Created a task', task));
 
 // Utilisation du service de tâches depuis le serveur
-taskService.create({
-  name: 'Nouvelle tâche',
-  completed: false,
-});
+// taskService.create({
+//   name: 'Nouvelle tâche',
+//   completed: false,
+// });
 
 export default client;
