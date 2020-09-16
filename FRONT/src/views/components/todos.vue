@@ -105,8 +105,8 @@ export default {
   components: {
     todo
   },
-  created () {
-    
+  mounted () {
+   this.fetchTodos()
   },
 
 
